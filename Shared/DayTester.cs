@@ -4,15 +4,18 @@ namespace Shared;
 
 public static class DayTester
 {
-    public static void Test<T>(string path) where T : DaySolution, new() {
-        path = Path.Join("../../../", path);
+    public static void Test<T>(string path, bool fromBinary = true) where T : DaySolution, new() {
+        if (fromBinary) path = Path.Join("..", "..", "..",  path);
+        bool dirExists = Directory.Exists(path);
+        bool fileExists = File.Exists(path);
         
         Console.WriteLine(Directory.GetCurrentDirectory());
-        if (!File.Exists(path)) {
+        
+        if (!fileExists && !dirExists) {
             throw new ArgumentException($"File {path} does not exist");
         }
 
-        if (Directory.Exists(path)) {
+        if (dirExists) {
             string[] files = Directory.GetFiles(path);
 
             if (files.Length <= 0) {
@@ -20,7 +23,7 @@ public static class DayTester
             }
 
             foreach (string file in files) {
-                Test<T>(file);
+                Test<T>(file, false);
             }
 
             return;
@@ -34,7 +37,11 @@ public static class DayTester
             throw new ArgumentException($"File {path} is empty");
         }
         
-        int outputStart = text.IndexOf("#EXPECTED_OUTPUT_START#");
+        int outputStart = text.IndexOf("#EXPECTED#");
+        if (outputStart == -1) {
+            throw new ArgumentException($"File {path} doesn't contain #EXPECTED#");
+        }
+        
         string[] input = text.Where((_, index) => index < outputStart).ToArray();
         string expectedOutput = text.Where((_, index) => index > outputStart).Aggregate((current, next) => current + '\n' + next);
         string output = day.SolveTimed(input);
