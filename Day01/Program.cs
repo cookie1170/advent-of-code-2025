@@ -3,4 +3,4 @@ using Shared;
 
 DaySolution solution = new Day01Solution();
 
-solution.SolveToFile("FinalInput.txt", "FinalOutput.txt");
+solution.SolveToFile();

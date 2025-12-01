@@ -39,6 +39,6 @@ public static class DayTester
         string expectedOutput = text.Where((_, index) => index > outputStart).Aggregate((current, next) => current + '\n' + next);
         string output = day.Solve(input);
 
-        Assert.That(output == expectedOutput);
+        Assert.That(output == expectedOutput, $"Expected '{expectedOutput}' but got '{output}'");
     }
 }

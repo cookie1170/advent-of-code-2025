@@ -10,7 +10,7 @@ public abstract class DaySolution
         return Solve(lines);
     }
 
-    public void SolveToFile(string inPath, string outPath) {
+    public void SolveToFile(string inPath = "input", string outPath = "output") {
         File.WriteAllText(outPath, SolveFromFile(inPath));
     }
 }
