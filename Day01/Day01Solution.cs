@@ -18,15 +18,9 @@ public class Day01Solution : DaySolution
             while (value > 0) {
                 state += sign;
                 value--;
-                
-                if (state >= WrapHighValue) {
-                    state = 0;
-                }
-                if (state < WrapLowValue) {
-                    state = WrapHighValue - 1;
-                }
-                
-                if (state == 0) {
+
+                int abs = Math.Abs(state);
+                if (abs % 100 == 0) {
                     matchCount++;
                 }
             }
