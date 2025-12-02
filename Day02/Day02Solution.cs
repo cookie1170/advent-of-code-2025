@@ -2,6 +2,13 @@ using Shared;
 
 namespace Day02;
 
+/*
+ * First attempt: 5000ms
+ * Second attempt: 1000ms
+ * Third attempt: 700ms
+ * Fourth attempt: 600ms
+ */
+
 public class Day02Solution : DaySolution
 {
     public override string Solve(string input) {
@@ -24,8 +31,10 @@ public class Day02Solution : DaySolution
     private static bool IsInvalid(long id) {
         string asString = id.ToString();
         int length = asString.Length;
-
+        
         for (int i = 1; i < length; i++) {
+            if (length % i != 0) continue;
+            
             if (AllSame(length, i, asString)) return true;
         }
 
@@ -34,9 +43,7 @@ public class Day02Solution : DaySolution
 
     private static bool AllSame(int length, int i, string asString) {
         string? first = null;
-        int loopedLength = 0;
         for (int j = 0; j <= length - i; j += i) {
-            loopedLength += i;
             string substring = asString.Substring(j, i);
             if (first == null) {
                 first = substring;
@@ -47,6 +54,6 @@ public class Day02Solution : DaySolution
             if (substring != first) return false;
         }
 
-        return loopedLength == length;
+        return true;
     }
 }
