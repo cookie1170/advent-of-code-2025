@@ -32,7 +32,7 @@ public class Day02Solution : DaySolution
         string asString = id.ToString();
         int length = asString.Length;
         
-        for (int i = 1; i < length; i++) {
+        for (int i = 1; i <= length / 2; i++) {
             if (length % i != 0) continue;
             
             if (AllSame(length, i, asString)) return true;
