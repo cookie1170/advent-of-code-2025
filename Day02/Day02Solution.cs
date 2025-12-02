@@ -8,6 +8,7 @@ namespace Day02;
  * Third attempt: 700ms
  * Fourth attempt: 600ms
  * Fifth attempt: 530ms
+ * Sixth attempt: 400ms
  */
 
 public class Day02Solution : DaySolution
@@ -15,12 +16,14 @@ public class Day02Solution : DaySolution
     public override string Solve(string input) {
         long sum = 0;
         string[] ranges = input.Split(',');
+        Span<char> buffer = stackalloc char[20];
+        
         foreach (string range in ranges) {
             string[] split = range.Split("-", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             long low = long.Parse(split[0]);
             long high = long.Parse(split[1]);
             for (long id = low; id <= high; id++) {
-                if (IsInvalid(id)) {
+                if (IsInvalid(id, buffer)) {
                     sum += id;
                 }
             } 
@@ -29,8 +32,7 @@ public class Day02Solution : DaySolution
         return sum.ToString();
     }
 
-    private static bool IsInvalid(long id) {
-        Span<char> buffer = stackalloc char[20];
+    private static bool IsInvalid(long id, Span<char> buffer) {
         id.TryFormat(buffer, out int length);
         
         for (int i = 1; i <= length / 2; i++) {
@@ -42,10 +44,10 @@ public class Day02Solution : DaySolution
         return false;
     }
 
-    private static bool AllSame(int length, int i, Span<char> span) {
-        Span<char> first = span[..i];
+    private static bool AllSame(int length, int i, Span<char> buffer) {
+        Span<char> first = buffer[..i];
         for (int j = i; j <= length - i; j += i) {
-            Span<char> substring = span.Slice(j, i);
+            Span<char> substring = buffer.Slice(j, i);
                 
             if (!substring.SequenceEqual(first)) return false;
         }
