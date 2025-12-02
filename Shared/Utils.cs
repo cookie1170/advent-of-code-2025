@@ -4,7 +4,7 @@ public static class Utils
 {
     public static string FormatTimeSpan(TimeSpan span) {
         if (span.TotalMicroseconds < 10000) {
-            return $"{span.TotalMicroseconds} us";
+            return $"{span.TotalMicroseconds} μs";
         }
 
         if (span.TotalMilliseconds < 10000) {
