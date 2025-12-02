@@ -2,7 +2,7 @@
 
 public abstract class DaySolution
 {
-    public string SolveTimed(string[] input) {
+    public string SolveTimed(string input) {
         DateTime start = DateTime.Now;
         string result = Solve(input);
         DateTime end = DateTime.Now;
@@ -13,12 +13,12 @@ public abstract class DaySolution
         return result;
     }
 
-    public abstract string Solve(string[] input);
+    public abstract string Solve(string input);
 
     public string SolveFromFile(string filePath) {
-        string[] lines = File.ReadAllLines(filePath);
+        string text = File.ReadAllText(filePath);
 
-        return SolveTimed(lines);
+        return SolveTimed(text);
     }
 
     public void SolveToFile(string inPath = "../../../input", string outPath = "../../../output") {

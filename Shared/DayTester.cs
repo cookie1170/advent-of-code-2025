@@ -42,7 +42,7 @@ public static class DayTester
             throw new ArgumentException($"File {path} doesn't contain #EXPECTED#");
         }
         
-        string[] input = text.Where((_, index) => index < outputStart).ToArray();
+        string input = text.Where((_, index) => index < outputStart).Aggregate((a, b) => a + '\n' + b);
         string expectedOutput = text.Where((_, index) => index > outputStart).Aggregate((current, next) => current + '\n' + next);
         string output = day.SolveTimed(input);
 
