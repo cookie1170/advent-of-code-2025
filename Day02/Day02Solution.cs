@@ -23,16 +23,19 @@ public class Day02Solution : DaySolution
 
     private static bool IsInvalid(long id) {
         string asString = id.ToString();
+        int length = asString.Length;
 
-        // can't have two repeating sections if it's odd
-        if (asString.Length % 2 == 1) {
-            return false;
+        for (int i = 1; i < length; i++) {
+            HashSet<string> allSubstrings = [];
+            int loopedLength = 0;
+            for (int j = 0; j <= length - i; j += i) {
+                loopedLength += i;
+                allSubstrings.Add(asString.Substring(j, i));
+            }
+
+            if (loopedLength == length && allSubstrings.Count == 1) return true;
         }
-        
-        int halfLength = asString.Length / 2;
-        string first = asString[..halfLength];
-        string last = asString[halfLength..];
 
-        return first == last;
+        return false;
     }
 }
