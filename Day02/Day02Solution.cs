@@ -26,16 +26,27 @@ public class Day02Solution : DaySolution
         int length = asString.Length;
 
         for (int i = 1; i < length; i++) {
-            HashSet<string> allSubstrings = [];
-            int loopedLength = 0;
-            for (int j = 0; j <= length - i; j += i) {
-                loopedLength += i;
-                allSubstrings.Add(asString.Substring(j, i));
-            }
-
-            if (loopedLength == length && allSubstrings.Count == 1) return true;
+            if (AllSame(length, i, asString)) return true;
         }
 
         return false;
+    }
+
+    private static bool AllSame(int length, int i, string asString) {
+        string? first = null;
+        int loopedLength = 0;
+        for (int j = 0; j <= length - i; j += i) {
+            loopedLength += i;
+            string substring = asString.Substring(j, i);
+            if (first == null) {
+                first = substring;
+
+                continue;
+            }
+                
+            if (substring != first) return false;
+        }
+
+        return loopedLength == length;
     }
 }
