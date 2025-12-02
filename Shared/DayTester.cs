@@ -6,7 +6,7 @@ public static class DayTester
 {
     private const string ExpectedText = "#EXPECTED#";
     
-    public static void Test<T>(string path, bool fromBinary = true) where T : DaySolution, new() {
+    public static void Test<T>(string path = "tests", bool fromBinary = true) where T : DaySolution, new() {
         if (fromBinary) path = Path.Join("..", "..", "..",  path);
         bool dirExists = Directory.Exists(path);
         bool fileExists = File.Exists(path);

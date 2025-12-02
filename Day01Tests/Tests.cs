@@ -7,6 +7,6 @@ public class Tests
 {
     [Test]
     public void Test() {
-        DayTester.Test<Day01Solution>("TestInputs");
+        DayTester.Test<Day01Solution>();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using Day02;
 using Shared;
 
-namespace Tests;
+namespace Day02Tests;
 
 public class Tests
 {
     [Test]
     public void Test() {
-        DayTester.Test<Day02Solution>("Tests");
+        DayTester.Test<Day02Solution>();
     }
 }

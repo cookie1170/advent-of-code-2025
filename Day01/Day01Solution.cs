@@ -7,7 +7,7 @@ public class Day01Solution : DaySolution
     private const int WrapHighValue = 100;
     
     public override string Solve(string input) {
-        string[] lines = input.Split('\n');
+        string[] lines = input.Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
         int matchCount = 0;
         int state = 50;
         foreach (string line in lines) {
