@@ -2,10 +2,13 @@ using Shared;
 
 public class Day03Solution : DaySolution
 {
+    private const int Length = 12;
+    
     public override string Solve(string input) {
         string[] stringBanks = input.Split('\n', StringSplitOptions.RemoveEmptyEntries);
         List<byte[]> banks = new(stringBanks.Length);
-        int sum = 0;
+        Span<byte> buffer = stackalloc byte[Length];
+        long sum = 0;
 
         foreach (string stringBank in stringBanks) {
             byte[] bank = new byte[stringBank.Length];
@@ -17,31 +20,36 @@ public class Day03Solution : DaySolution
         }
 
         foreach (byte[] bank in banks) {
-            sum += GetBankJoltage(bank);
+            long joltage = GetBankJoltage(bank, buffer);
+            sum += joltage;
         }
 
         return sum.ToString();
     }
 
-    // ReSharper disable once IdentifierTypo
-    private static int GetBankJoltage(byte[] bank) {
-        byte largest = 0;
-        byte secondLargest = 0;
-        for (int i = 0; i < bank.Length - 1; i++) {
+    private static long GetBankJoltage(byte[] bank, Span<byte> buffer) {
+        buffer.Fill(0);
+        
+        for (int i = 0; i < bank.Length; i++) {
             byte b = bank[i];
-            if (b > largest) {
-                largest = b;
-                secondLargest = 0;
-            } else if (b > secondLargest) {
-                secondLargest = b;
+            for (int j = 0; j < buffer.Length; j++) {
+                if (b <= buffer[j] || bank.Length - i < Length - j) continue;
+                
+                for (int k = j + 1; k < buffer.Length; k++) {
+                    buffer[k] = 0; 
+                }
+                
+                buffer[j] = b;
+                
+                break;
             }
         }
 
-        byte last = bank[^1];
-        if (last > secondLargest) {
-            secondLargest = last;
+        long result = 0;
+        for (int i = 0; i < buffer.Length; i++) {
+            result += buffer[^(i + 1)] * (long)Math.Pow(10, i);
         }
 
-        return largest * 10 + secondLargest;
+        return result;
     }
 }
