@@ -5,5 +5,7 @@
   <Project Path="Day02Tests/Day02Tests.csproj" />
   <Project Path="Day03/Day03.csproj" />
   <Project Path="Day03Tests/Day03Tests.csproj" />
+  <Project Path="Day04/Day04.csproj" />
+  <Project Path="Day04Tests/Day04Tests.csproj" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>
