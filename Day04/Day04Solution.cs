@@ -20,15 +20,23 @@ public class Day04Solution : DaySolution
             }
         }
 
-        int validCount = 0;
+        int removedTotal = 0;
+        int removed;
 
-        for (int y = 0; y < map.GetLength(0); y++) {
-            for (int x = 0; x < map.GetLength(1); x++) {
-                if (map[y, x] && IsRollValid(map, y, x)) validCount++;
+        do {
+            removed = 0;
+            for (int y = 0; y < map.GetLength(0); y++) {
+                for (int x = 0; x < map.GetLength(1); x++) {
+                    if (map[y, x] && IsRollValid(map, y, x)) {
+                        map[y, x] = false;
+                        removed++;
+                        removedTotal++;
+                    }
+                }
             }
-        }
+        } while (removed > 0);
 
-        return validCount.ToString();
+        return removedTotal.ToString();
     }
 
     private bool IsRollValid(bool[,] map, int y, int x) {
